@@ -1,0 +1,55 @@
+﻿@model List<Form>
+@using EntityLayer.Concrete
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>FORM LİSTELERİ</h1>
+<table id="tbl1" class="table table-bordered">
+    <thead>
+        <tr>
+        <th>ID</th>
+        <th>Form Name</th>
+        <th>DESCRIPTION</th>
+        <th>CREATED AT</th>
+        <th>CREATED BY</th>
+        <th>READ MORE</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+                <tr>
+                        <td>@item.Id</td>
+                    <td>@item.FormName</td>
+                    <td>@item.Description</td>
+                    <td>@item.CreatedAt</td>
+                    <td>@item.CreatedBy</td>
+                                <td><a href="/Form/FormDetails/@item.Id/"id="example-link" class="btn btn-primary">Form Details</a>
+    </td>
+                </tr>
+
+        }
+    </tbody>
+</table>
+<button id="btnLoad1" class="alert alert-warning">New Form</button>
+@section scripts{
+        <script src="~/js/datatable_file.js"></script>
+}
+<script>
+    $.ajax({
+    url: '/Form/_FormDetail',
+    type: 'GET',
+    data: { id: 1 },
+    success: function (result) {
+        $('#tbl1').html(result);
+    },
+    error: function (error) {
+        console.log(error);
+    }
+});
+
+</script>
+
+
